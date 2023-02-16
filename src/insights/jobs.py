@@ -17,9 +17,9 @@ def read(path: str) -> List[Dict]:
     list
         List of rows as dicts
     """
-    with open(path, encoding='utf-8') as file:
+    with open(path, encoding="utf-8") as file:
         list_of_dicts = []
-        dicts = csv.DictReader(file, delimiter=',', quotechar='"')
+        dicts = csv.DictReader(file, delimiter=",", quotechar='"')
         for row in dicts:
             list_of_dicts.append(row)
         return list_of_dicts
@@ -60,7 +60,5 @@ def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:
     list
         List of jobs with provided job_type
     """
-    jobs_of_type = [job
-                    for job in jobs
-                    if job["job_type"] == job_type]
+    jobs_of_type = [job for job in jobs if job["job_type"] == job_type]
     return jobs_of_type

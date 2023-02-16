@@ -18,9 +18,9 @@ def get_max_salary(path: str) -> int:
         The maximum salary paid out of all job opportunities
     """
     jobs = read(path)
-    max_salary = {int(job["max_salary"])
-                  for job in jobs
-                  if job["max_salary"].isdigit()}
+    max_salary = {
+        int(job["max_salary"]) for job in jobs if job["max_salary"].isdigit()
+    }
     return max(max_salary)
 
 
@@ -40,9 +40,9 @@ def get_min_salary(path: str) -> int:
         The minimum salary paid out of all job opportunities
     """
     jobs = read(path)
-    min_salary = {int(job["min_salary"])
-                  for job in jobs
-                  if job["min_salary"].isdigit()}
+    min_salary = {
+        int(job["min_salary"]) for job in jobs if job["min_salary"].isdigit()
+    }
     return min(min_salary)
 
 
@@ -69,12 +69,36 @@ def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
         If `job["min_salary"]` is greather than `job["max_salary"]`
         If `salary` isn't a valid integer
     """
-    raise NotImplementedError
+    if "min_salary" not in job or "max_salary" not in job:
+        raise ValueError("Job salaries do not exist")
+
+    validate_salaries(job["min_salary"], job["max_salary"], salary)
+
+    return int(job["min_salary"]) <= int(salary) <= int(job["max_salary"])
+
+
+def validate_salaries(
+    min_salary: Union[int, str],
+    max_salary: Union[int, str],
+    salary: Union[int, str],
+) -> None:
+    salaries = [min_salary, max_salary, salary]
+
+    int_or_str_salaries = [type(value) in (int, str) for value in salaries]
+
+    valid_str_salaries = [
+        value.isnumeric() for value in salaries if isinstance(value, str)
+    ]
+
+    if not all(int_or_str_salaries) or not all(valid_str_salaries):
+        raise ValueError("Job salaries must be valid integers")
+
+    if min_salary > max_salary:
+        raise ValueError("Min salary can't be greater than max salary")
 
 
 def filter_by_salary_range(
-    jobs: List[dict],
-    salary: Union[str, int]
+    jobs: List[dict], salary: Union[str, int]
 ) -> List[Dict]:
     """Filters a list of jobs by salary range
 
