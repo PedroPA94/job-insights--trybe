@@ -93,7 +93,7 @@ def validate_salaries(
     if not all(int_or_str_salaries) or not all(valid_str_salaries):
         raise ValueError("Job salaries must be valid integers")
 
-    if min_salary > max_salary:
+    if int(min_salary) > int(max_salary):
         raise ValueError("Min salary can't be greater than max salary")
 
 
@@ -114,4 +114,11 @@ def filter_by_salary_range(
     list
         Jobs whose salary range contains `salary`
     """
-    raise NotImplementedError
+    filtered_jobs = []
+    for job in jobs:
+        try:
+            if matches_salary_range(job, salary):
+                filtered_jobs.append(job)
+        except ValueError:
+            continue
+    return filtered_jobs
