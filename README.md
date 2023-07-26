@@ -1,6 +1,6 @@
 # Welcome!
 
-This is my first Python project! It does some simple data analysis (max, min, filters) on job opportunities data and shows them on an Flask app (which wasn't developed by me). I also wrote tests for some functions using pytest.
+This is my first Python project! It does some simple data analysis (max, min, filters) on job opportunities data and shows them on a Flask app (which wasn't developed by me). I also wrote tests for some functions using pytest.
 
 This project was developed while studying Computer Science [@betrybe](https://github.com/betrybe). The files I worked on are in the ```/src/insights``` and ```/src/tests``` folders. I got approval on 100% of this project's requirements.
 
